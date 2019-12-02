@@ -35,7 +35,7 @@ define( 'COR_BARRA_NAVEGADOR', '#000000' );
  */
 define( 'EM_BREVE', false );
 define( 'COMENTARIOS', false );
-define( 'BLOG', true );
+define( 'BLOG', false );
 define( 'ID_ANALYTICS', false );
 
 
