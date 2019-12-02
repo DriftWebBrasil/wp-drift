@@ -1,0 +1,174 @@
+/* 
+hello ¯\_(ツ)_/¯
+Carregar fontes no header.php
+*/
+@url: 'https://driftweb.com.br'; // @{url}
+
+// Variáveis
+:root {
+    --verdePadrao: #0f0;
+    --pretoPadrao: #000;
+    // color: var(--verdePadrao);
+}
+
+// $Mixins
+.DisplayFlex {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+.FlexAlignCenter {
+    .DisplayFlex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.FlexJustCenter {
+    .DisplayFlex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+.FlexPower {
+    .DisplayFlex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+.FlexColumn {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+// $Scrollbar 
+/*
+::-webkit-scrollbar {
+    width: 12px;
+}
+::-webkit-scrollbar-track {
+    border-radius: 0;
+    background: purple;
+}
+::-webkit-scrollbar-thumb {
+    background: pink;
+    border-radius: 0;
+}
+*/
+
+
+
+// $Geral
+body {
+    font-family: 'Arial', sans-serif;
+}
+
+.main-content {
+    min-height: 200%;
+}
+
+.main-grid {
+    max-width: 1250px;
+    margin: 0 auto;
+}
+
+
+// $Header 
+.main-header {
+    background: #151515;
+    height: 60px;
+    .FlexAlignCenter;
+    padding: 5px 0;
+
+    .header-grid {
+        max-width: 1470px;
+        padding: 0 15px;
+        margin: 0 auto;
+        width: 100%;
+        .FlexAlignCenter;
+        justify-content: space-between;
+    }
+    
+    .custom-logo-link {
+        display: block;
+        max-width: 250px;
+    }
+    
+    .menu {
+        .DisplayFlex;
+        
+        li:not(:last-of-type) {
+            margin-right: 10px;
+        }
+        
+        a {
+            position: relative;
+            color: #fff;
+            
+            &::before {
+                content: "";
+                height: 1px;
+                position: absolute;
+                background: #fff;
+                width: 0;
+                bottom: -5px;
+                transition: width .2s;
+            }
+
+            &:hover::before {
+                width: 10px;
+            }
+        }
+    }
+
+    .menu-item-has-children:hover .sub-menu {
+        opacity: 1;
+    }
+    
+    .sub-menu {
+        position: absolute;
+        opacity: 0;
+    }
+}
+
+
+// $Footer
+.subfooter {
+    background: linear-gradient(-3deg,#0f0c29,#302b63);
+    color: #fff;
+    height: 60px;
+    .FlexAlignCenter;
+    
+    .desenvolvimento a {
+        color: #17d117;
+    }
+    
+    .main-grid {
+        .DisplayFlex;
+        width: 100%;
+        -webkit-box-pack: justify;
+        -webkit-justify-content: space-between;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        margin: 0 auto;
+        padding: 10px 15px;
+
+        > div {
+            margin: 0 5px;
+        }
+    }
+}
+
+@import "shortcodes/principais-posts.less";

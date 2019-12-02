@@ -1,0 +1,188 @@
+@url: "[url-do-site]";
+@urlTema: "@{url}/wp-content/themes/wp-drift-master/";
+
+// Variáveis
+:root {
+    
+    // CORES DO POST EM DESTAQUE
+    --featCorLink: #000;
+    --featCorLinkHover: #BDBDBD;
+    --featCardCorInfo: #BDBDBD;
+    --featCardCorTitle: #333333;
+}
+
+body {
+    font-family: var(--fontePadrao) !important;
+}
+
+.blog-container {
+    padding: 48px 0;
+}
+
+.TransicaoPadrao {
+    -webkit-transition: 0.3s all;
+    transition: 0.3s all;
+}
+
+.BlockAnchor {
+    display: block;
+    width: 100%;
+}
+
+.blog-featured-container {
+    .blog-featured-card {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .feat-card-image-box {
+            width: 55%;
+            overflow: hidden;
+            position: relative;
+
+            .feat-card-image {
+                width: 100%;
+                position: relative;
+                height: 0;
+                padding-bottom: 56.25%; // 16:9
+                background-size: cover;
+                background-origin: center;
+                cursor: pointer;  
+                .TransicaoPadrao();  
+            }
+
+            .feat-card-image-link {
+                .BlockAnchor();
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+            }
+
+            &:hover .feat-card-image {
+                transform: scale(1.2);
+            }
+        }
+
+        .feat-card-texts {
+            width: 43.2%;
+
+            .feat-card-tag {
+                span {
+                    font-size: 20px;
+                    font-style: italic;
+                    font-weight: 400;
+                }
+            }
+            .feat-card-title {
+                h2 {
+                    font-size: 44px;
+                    line-height: 52px;
+                    color: var(--featCardCorTitle);
+                    font-weight: 700;
+                }
+            }
+            .feat-card-date {
+                margin-top: 8px;
+
+                span {
+                    font-size: 14px;
+                    font-weight: 500;
+                    color: var(--featCardCorInfo);
+                }
+            }
+            .feat-card-excerpt {
+                margin-top: 20px;
+
+                p {
+                    font-size: 18px;
+                    line-height: 32px;
+                    font-weight: 400;
+                    color: var(--featCardCorInfo);
+                }
+
+                .feat-card-excerpt-more {
+                    font-size: 18px;
+                    line-height: 32px;
+                    font-weight: 400;
+                    color: var(--featCardCorInfo);
+                    margin-left: 6px;
+                    display: inline-block;
+                    cursor: pointer;
+                    .TransicaoPadrao();
+
+                    &,
+                    &:visited,
+                    &:active {
+                        color: var(--featCorLink);
+                    }
+
+                    &:hover {
+                        color: var(--featCorLinkHover);
+                    }
+                }
+            }
+        }
+    }
+}
+
+.paged .blog-featured-container {
+    display: none;
+}
+
+@media only screen and (max-width: 1380px) {
+    .main-grid {
+        padding: 0 3%;
+    }
+}
+
+@media only screen and (max-width: 1030px) {
+    .blog-featured-container {
+        .blog-featured-card {
+            flex-direction: column;
+
+            .feat-card-image-box {
+                width: 100%;
+    
+                .feat-card-image {
+                    padding-bottom: 42.55%; // 7:3
+                }
+            }
+    
+            .feat-card-texts {
+                margin-top: 48px;
+                width: 100%;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .blog-container {
+        padding: 32px 0;
+    }
+
+    .blog-featured-container {
+        margin-top: 32px;
+
+        .blog-featured-card {
+            .feat-card-image-box {
+                .feat-card-image {
+                    padding-bottom: 75%; // 4:3
+                } 
+            }
+            .feat-card-texts {
+                margin-top: 32px;
+                text-align: center;
+                
+                .feat-card-title {
+                    h2 {
+                        font-size: 38px;
+                        line-height: 48px;        
+                    }
+                }
+            }
+        }
+    }
+}

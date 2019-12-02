@@ -1,0 +1,70 @@
+/*
+* Esse arquivo é carregado na área admin apenas.
+*/
+/* The switch - the box around the slider */
+.post-type-post .column-posts_toggle .switch {
+    position: relative;
+    display: inline-block;
+    width: 35px;
+    height: 20px;
+}
+
+/* Hide default HTML checkbox */
+.post-type-post .column-posts_toggle .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The slider */
+.post-type-post .column-posts_toggle .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+            transition: .4s;
+}
+
+.post-type-post .column-posts_toggle .slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    -webkit-transition: .4s;
+            transition: .4s;
+}
+
+.post-type-post .column-posts_toggle input:checked + .slider {
+    background-color: #2196F3;
+}
+
+.post-type-post .column-posts_toggle input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+.post-type-post .column-posts_toggle input:checked + .slider:before {
+    -webkit-transform: translateX(15px);
+        -ms-transform: translateX(15px);
+            transform: translateX(15px);
+}
+
+/* Rounded sliders */
+.post-type-post .column-posts_toggle .slider.round {
+    border-radius: 34px;
+}
+
+.post-type-post .column-posts_toggle .slider.round:before {
+    border-radius: 50%;
+}
+
+.post-type-post .disabled{
+    opacity: 0.85;
+    pointer-events: none;
+}
