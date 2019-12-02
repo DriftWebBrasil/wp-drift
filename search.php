@@ -4,7 +4,8 @@
     $search = get_query_var('s');
 
     $articles = new WP_Query(array( 
-        's' => $search,
+        's'                 => $search,
+        'post_type'         => 'post',
         'posts_per_page'    => 8,
         'order'             => 'DESC',
         'orderby'           => 'date',

@@ -36,7 +36,7 @@ function principais_posts($atts) {
     /**
      * Variável que define o link do Blog. Por padrão, é o slug "blog"
      */
-    $blog_url = isset($atts['blog_url']) ? $atts['blog_url'] : SITE_URL . '/blog';
+    $blog_url = isset($atts['blog_url']) ? $atts['blog_url'] : SITEURL . '/blog';
     
     $args =  array( 
         'post_type'         => 'post',

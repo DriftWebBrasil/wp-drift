@@ -61,8 +61,9 @@ while ( have_posts() ) : the_post(); ?>
                     <?php
                         $category = get_the_category();
 
+                        // Se tiver categorias, acrescenta ao breadcrumb
                         $cat_array = array();
-                        if(!empty($category) && $category[0]->cat_name != 'Uncategorized') {
+                        if(!empty($category) && $category[0]->term_id != 1 ) {
                             
                             $last_category = end($category);
                             $category_parent_id = $last_category->category_parent;
@@ -71,7 +72,12 @@ while ( have_posts() ) : the_post(); ?>
                             $cat_array = explode(',',$get_cat_parents);
                         } 
 
-                        echo breadcrumbPadrao(true, array("Nosso Blog" => SITEURL . "/nosso-blog"), $cat_array, ''); 
+
+                        // Valor padrão - Em caso de uma página de blog com nome diferente, modificar abaixo
+                        $blog_page = "Blog";
+                        $blog_link = SITEURL + "/blog";
+
+                        echo breadcrumbPadrao(true, array($blog_page => $blog_link), $cat_array, ''); 
 
                     ?> 
                 </nav>
