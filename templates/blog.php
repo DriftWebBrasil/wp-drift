@@ -51,10 +51,12 @@ $featured_post = array();
                 while($featured->have_posts()) : 
                     $featured->the_post();
                     $featured_post[0] = get_the_ID(); 
+                    $featured_thumb = get_the_post_thumbnail_url();
+                    $featured_thumb = empty($featured_thumb) ? THEME_DIR . '/assets/img/padrao-post.png' : $featured_thumb;
             ?>
                 <div class="blog-featured-card">
                     <div class="feat-card-image-box">
-                        <div class="feat-card-image" style="background-image: url('<?= get_the_post_thumbnail_url() ?>')">
+                        <div class="feat-card-image" style="background-image: url('<?= $featured_thumb ?>')">
                         </div>    
                         <a href="<?php the_permalink() ?>" class="feat-card-image-link"></a>
                     </div>
@@ -124,10 +126,15 @@ $featured_post = array();
                         /**
                          * Início do loop dos posts padrões
                          */
+
+                            $post_thumbnail = get_the_post_thumbnail_url(get_the_ID(), 'medium');
+                            $post_thumbnail = empty($post_thumbnail) ? THEME_DIR . '/assets/img/padrao-post-peq.png' : $post_thumbnail ;
+                    
+
                         ?>
                             <div class="blog-card-padrao">
                                 <div class="blog-card-image-box">
-                                    <div class="blog-card-image" style="background-image: url('<?= get_the_post_thumbnail_url(get_the_ID(), 'medium') ?>')"></div>
+                                    <div class="blog-card-image" style="background-image: url('<?= $post_thumbnail ?>')"></div>
                                     <a href="<?php the_permalink() ?>" class="block-card-image-link"></a>
                                 </div>
                                 <div class="blog-card-content">

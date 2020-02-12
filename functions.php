@@ -31,6 +31,10 @@ if ( SUPORTE_PWA ) {
     require_once 'PWA/class-Drift_PWA.php';
 }
 
+if( VAGAS_PADRAO ) {
+    require_once 'functions/vagas-functions.php';
+}
+
 
 /**
  * Altera na área admin 
@@ -80,6 +84,14 @@ if ( ! function_exists( 'pre' ) ) {
         echo '</pre>';
     }
 }
+
+// function dft_debug() {
+
+//     pre(get_option('vagas_form_ex' ));
+// }
+
+// add_action( 'init', 'dft_debug' );
+
 
 
 /**
@@ -173,6 +185,22 @@ if ( !BLOG ) {
     add_action( 'admin_enqueue_scripts', 'blog_admin_files' );
     add_filter('excerpt_more', 'custom_ler_mais');
     add_filter('get_search_form', 'custom_search_form');
+    add_action( 'save_post', 'contagem_palavras' );
+
+    // Configurações para Post em Destaque
+    if( !get_current_post_type() == 'post' ) {
+
+        // Adiciona coluna de escolha de posts em destaque
+        add_action( 'wp_ajax_nopriv_setPostFeatured', 'setPostFeatured', 10 );
+        add_action( 'wp_ajax_setPostFeatured', 'setPostFeatured' );
+        add_filter( 'manage_posts_columns', 'posts_column_post' );
+        add_action( 'manage_posts_custom_column', 'posts_custom_column_post', 5, 2 );
+
+        // Adiciona coluna de visualizações dos posts
+        add_filter( 'manage_posts_columns', 'posts_column_views' );
+        add_action( 'manage_posts_custom_column', 'posts_custom_column_views', 5, 2 );    
+    }
+
     adicionar_meta_boxes();
 }
 
@@ -229,8 +257,6 @@ function contagem_palavras( $postID ) {
         update_post_meta( $postID, $count_key, $minutes );
     }
 }
-
-add_action( 'save_post', 'contagem_palavras' );
 
 function breadcrumbPadrao( $home = true, $caminho = array(), $categorias = array(), $atual = '' ){
     $html = '<div class="breadcrumb">';
@@ -298,7 +324,6 @@ abstract class PostDestaques_Meta_Box {
     public static function html($post)
     {
         $value = get_post_meta($post->ID, 'is_blog_post_featured', true);
-        pre($value);
         $value = ($value != null) ? true : false ;
 
         $query = new WP_Query(array(
@@ -383,133 +408,130 @@ if( !get_current_post_type() == 'post' ){
             echo getPostViews( get_the_ID() );
         }
     }
-    add_filter( 'manage_posts_columns', 'posts_column_views' );
-    add_action( 'manage_posts_custom_column', 'posts_custom_column_views', 5, 2 );
 }
 
-add_action( 'wp_ajax_nopriv_setPostFeatured', 'setPostFeatured', 10 );
-add_action( 'wp_ajax_setPostFeatured', 'setPostFeatured' );
+/**
+ * If post type is post add featured option column
+ */
+if( !get_current_post_type() == 'post' ) {
 
-
-function getPostFeatured( $postID ){
-        
-    $key    = 'is_blog_post_featured';
-    $value  = get_post_meta( $postID, $key, true ); 
-    // delete_post_meta($postID, 'is_blog_post_featured');
-
-    if( $value == 'true' ){
-        
-        return "<label class='switch btn-posts_toggle'>
-                    <input name='btnBom' value='true' type='checkbox' checked >
-                    <span class='slider round'></span>
-                </label>";
-
-    } 
+    function setPostFeatured(){
     
-    return "<label class='switch btn-posts_toggle'>
-                <input name='btnBom' value='false' type='checkbox' >
-                <span class='slider round'></span>
-            </label>";
-
-}
-
-function posts_column_post( $defaults ) {
-
-    $defaults['posts_toggle'] = __( 'Destacar Post' );
-    return $defaults;
-}
-
-function posts_custom_column_post( $column_name, $id ) {
-
-    if ( $column_name === 'posts_toggle' ) {
-
-        echo getPostFeatured( get_the_ID() );
-
-    }
-
-}
-
-function setPostFeatured(){
+        if( !isset( $_POST['nonce'] ) ){
     
-    if( !isset( $_POST['nonce'] ) ){
-
-        wp_die();
-
-    }
-
-    // Check for nonce security
-    $nonce = $_POST['nonce'];
-
-    if ( ! wp_verify_nonce( $nonce, 'dft_blog-' ) ) {
-
-        wp_die();
-
-    } else {
-
-        //check action
-        if($_POST['action'] != 'setPostFeatured'){
-
             wp_die();
-
-        }else{
-            
-            $preValue   = $_POST['value'];
-            $post_id    = $_POST['id'];
-            $key        = 'is_blog_post_featured';
-            $id         = 0;
-
-            if( isset($_POST['value']) && !empty($_POST['value']) ){
+    
+        }
+    
+        // Check for nonce security
+        $nonce = $_POST['nonce'];
+    
+        if ( ! wp_verify_nonce( $nonce, 'dft_blog-' ) ) {
+    
+            wp_die();
+    
+        } else {
+    
+            //check action
+            if($_POST['action'] != 'setPostFeatured'){
+    
+                wp_die();
+    
+            }else{
                 
-                $value = 'false';
-                delete_post_meta( $post_id, $key );
-
-            } else {
-
-                $args = array(
-                    'post_type'         => 'post',
-                    'post_status'       => 'publish',
-                    'order'             => 'ASC',
-                    'orderby'           => 'meta_value_num',
-                    'meta_key'          => 'is_blog_post_featured',
-                    'posts_per_page'    => -1,
-                    'meta_query'        => array( array(
-                                                'key'       => 'is_blog_post_featured',
-                                                'value'     => 'true',
-                                                'compare'   => '=',
-                                            ) )
-                );
-            
-                $featuredPosts  = new WP_Query( $args );
-
-                if( $featuredPosts->have_posts() && $featuredPosts->post_count >= 1 ){
-                    $count = 0;
-                    while( $featuredPosts->have_posts() ){
-                        $featuredPosts->the_post();
-                        if( $count == 0 ){                  
-                            delete_post_meta( get_the_ID(), $key );
-                            $id = get_the_ID();
+                $preValue   = $_POST['value'];
+                $post_id    = $_POST['id'];
+                $key        = 'is_blog_post_featured';
+                $id         = 0;
+    
+                if( isset($_POST['value']) && !empty($_POST['value']) ){
+                    
+                    $value = 'false';
+                    delete_post_meta( $post_id, $key );
+    
+                } else {
+    
+                    $args = array(
+                        'post_type'         => 'post',
+                        'post_status'       => 'publish',
+                        'order'             => 'ASC',
+                        'orderby'           => 'meta_value_num',
+                        'meta_key'          => 'is_blog_post_featured',
+                        'posts_per_page'    => -1,
+                        'meta_query'        => array( array(
+                                                    'key'       => 'is_blog_post_featured',
+                                                    'value'     => 'true',
+                                                    'compare'   => '=',
+                                                ) )
+                    );
+                
+                    $featuredPosts  = new WP_Query( $args );
+    
+                    if( $featuredPosts->have_posts() && $featuredPosts->post_count >= 1 ){
+                        $count = 0;
+                        while( $featuredPosts->have_posts() ){
+                            $featuredPosts->the_post();
+                            if( $count == 0 ){                  
+                                delete_post_meta( get_the_ID(), $key );
+                                $id = get_the_ID();
+                            }
+                            $count++;
                         }
-                        $count++;
                     }
+                    $value      = 'true';
+                    update_post_meta( $post_id, $key, $value );
                 }
-                $value      = 'true';
-                update_post_meta( $post_id, $key, $value );
+    
+                //return
+                echo json_encode(array(
+                    'status'    => 'success',
+                    'change'    => $value,
+                    'id'        => $id
+                ));
+    
+                wp_die();
             }
-
-            //return
-            echo json_encode(array(
-                'status'    => 'success',
-                'change'    => $value,
-                'id'        => $id
-            ));
-
-            wp_die();
         }
     }
+    
+    function getPostFeatured( $postID ){
+        
+        $key    = 'is_blog_post_featured';
+        $value  = get_post_meta( $postID, $key, true ); 
+        // delete_post_meta($postID, 'is_blog_post_featured');
+    
+        if( $value == 'true' ){
+            
+            return "<label class='switch btn-posts_toggle'>
+                        <input name='btnBom' value='true' type='checkbox' checked >
+                        <span class='slider round'></span>
+                    </label>";
+    
+        } 
+        
+        return "<label class='switch btn-posts_toggle'>
+                    <input name='btnBom' value='false' type='checkbox' >
+                    <span class='slider round'></span>
+                </label>";
+    
+    }
+
+    function posts_column_post( $defaults ) {
+
+        $defaults['posts_toggle'] = __( 'Destacar Post' );
+        return $defaults;
+    }
+    
+    function posts_custom_column_post( $column_name, $id ) {
+        if ( $column_name === 'posts_toggle' ) {
+    
+            echo getPostFeatured( get_the_ID() );
+    
+        }
+    }
+
 }
 
-add_filter( 'manage_posts_columns', 'posts_column_post' );
-add_action( 'manage_posts_custom_column', 'posts_custom_column_post', 5, 2 );
 
 /**
  * Get current post type in admin area
@@ -528,6 +550,7 @@ function get_current_post_type() {
     
     return null;
 }
+
 
 /**
  * 
@@ -597,3 +620,11 @@ if ( is_admin() ) {
     }
     add_filter( 'pre_get_posts', 'ordena_post_types_dashboard' );
  }
+
+/* Função para pegar o Youtube para diferentes urls */
+function get_the_youtube_id($url) {
+    $matches = array();
+    preg_match("#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+(?=\?)|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#", $url, $matches);
+    return trim(end($matches));
+}
+

@@ -48,10 +48,14 @@ function principais_posts($atts) {
     $query = new WP_Query($args); 
 
     $loop_html_template = "";
+
+    $thumbnail = get_the_post_thumbnail_url('medium');
+    $thumbnail = empty($thumbnail) ? THEME_DIR . '/assets/img/padrao-post-peq.png' : $thumbnail ;
+
     while($query->have_posts()) : $query->the_post();
         $loop_html_template .= "<div class='blog-card col-1-" . $colunas ."'>
         <div class='blog-card-image-box'>
-            <div class='blog-card-image' style='background-image: url(". get_the_post_thumbnail_url(get_the_ID()) .")'></div>
+            <div class='blog-card-image' style='background-image: url(". $thumbnail .")'></div>
             <a href='" . get_the_permalink() ."' class='block-card-image-link'></a>
         </div>
         <div class='blog-card-content'>

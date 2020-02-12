@@ -6,7 +6,13 @@
 get_header();
 setPostViews( get_the_ID() );
 
-while ( have_posts() ) : the_post(); ?>
+while ( have_posts() ) : the_post(); 
+
+$principal_thumb = get_the_post_thumbnail_url();
+$principal_thumb = empty($principal_thumb) ? THEME_DIR . '/assets/img/padrao-post.png' : $principal_thumb;
+
+
+?>
     
     <div class="menu-search-mobile">
         <div class="menu-search-mobile-wrapper">
@@ -28,13 +34,16 @@ while ( have_posts() ) : the_post(); ?>
                         ); 
                 
                         $query = new WP_Query($args);
-                        
+
+                        $others_thumb_mob = get_the_post_thumbnail_url('thumbnail');
+                        $others_thumb_mob = empty($others_thumb_mob) ? THEME_DIR . '/assets/img/padrao-post-thumb.png' : $others_thumb_mob;
+                                                
                         if($query->have_posts()) : 
                             while($query->have_posts()) : $query->the_post(); ?>
 
                                 <div class="post-aside-card">
                                     <div class="post-aside-image-wrapper">
-                                        <div class="post-aside-image" style="background-image: url('<?= get_the_post_thumbnail_url(); ?>')"></div>
+                                        <div class="post-aside-image" style="background-image: url('<?= $others_thumb_mob ?>')"></div>
                                         <a href="<?= get_the_permalink() ?>"></a>
                                     </div>
                                     <div class="post-aside-text">
@@ -75,7 +84,7 @@ while ( have_posts() ) : the_post(); ?>
 
                         // Valor padrão - Em caso de uma página de blog com nome diferente, modificar abaixo
                         $blog_page = "Blog";
-                        $blog_link = SITEURL + "/blog";
+                        $blog_link = SITEURL . "/blog";
 
                         echo breadcrumbPadrao(true, array($blog_page => $blog_link), $cat_array, ''); 
 
@@ -92,7 +101,7 @@ while ( have_posts() ) : the_post(); ?>
             <div class="post-body">
                 <div class="post-content">
                     <div class="post-content-image-wrapper">
-                        <div class="post-content-image" style="background-image: url('<?= get_the_post_thumbnail_url() ?>'); "></div>
+                        <div class="post-content-image" style="background-image: url('<?= $principal_thumb ?>'); "></div>
                     </div>
                     <div class="post-content-text">
                         <?php the_content() ?>
@@ -132,10 +141,15 @@ while ( have_posts() ) : the_post(); ?>
                         <div class="posts-featured-loop">
                             <?php 
                             if($query->have_posts()) : 
-                                while($query->have_posts()) : $query->the_post(); ?>
+                                while($query->have_posts()) : $query->the_post(); 
+                                
+                                $others_thumb = get_the_post_thumbnail_url('thumbnail');
+                                $others_thumb = empty($others_thumb) ? THEME_DIR . '/assets/img/padrao-post-thumb.png' : $others_thumb;
+                                ?>
+
                                     <div class="post-aside-card">
                                         <div class="post-aside-image-wrapper">
-                                            <div class="post-aside-image" style="background-image: url('<?= get_the_post_thumbnail_url(); ?>')"></div>
+                                            <div class="post-aside-image" style="background-image: url('<?= $others_thumb ?>')"></div>
                                             <a href="<?= get_the_permalink() ?>"></a>
                                         </div>
                                         <div class="post-aside-text">

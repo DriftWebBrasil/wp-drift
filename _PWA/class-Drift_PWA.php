@@ -3,9 +3,9 @@
 class Drift_PWA {
 
     public function __construct() {
-        add_action( 'wp_head', array( __CLASS__, 'load_manifest' ) );
-        add_action( 'after_setup_theme', array( __CLASS__, 'cria_service_worker' ) );
-        add_action( 'wp_enqueue_scripts', array( __CLASS__, 'load_service_worker' ) );
+        add_action( 'wp_head', array( $this, 'load_manifest' ) );
+        add_action( 'after_setup_theme', array( $this, 'cria_service_worker' ) );
+        add_action( 'wp_enqueue_scripts', array( $this, 'load_service_worker' ) );
     }
 
     /**
@@ -28,6 +28,8 @@ class Drift_PWA {
 
         if ( !file_exists( ABSPATH . 'serviceWorker.js' ) ) {
 
+            pre("Não existo!");
+
             try {
                 $file = fopen( ABSPATH . 'serviceWorker.js', 'w' );
                 $script_content = file_get_contents( THEME_DIR . '/PWA/serviceWorker.js' );
@@ -36,12 +38,18 @@ class Drift_PWA {
 
                 fclose( $file );
 
+                return true;
+
+
             } catch (Exception $e) {
+
                 echo 'Erro: não foi possível criar o arquivo serviceWorker.js';
 
                 return false;
             }
         } else {
+            pre("Existo!");
+
             return true;
         }
     }
@@ -51,7 +59,7 @@ class Drift_PWA {
      */
     public static function load_service_worker() { 
         
-        if ( self::cria_service_worker() ): ?>
+        if ( $this->cria_service_worker() ): ?>
             <script>
                 if ('serviceWorker' in navigator) {
                     navigator.serviceWorker.register( '<?= SITEURL ?>/serviceWorker.js')

@@ -1,0 +1,565 @@
+@url: 'http://url-do-site';
+
+:root {
+    --tituloCor: #4F4F4F;
+    --inputDisabled: #F2F2F2;
+    --formularioFundo: #fff;
+
+    --accordionCorNome: #4F4F4F;
+    --accordionCorData: #4F4F4F;
+    --accordionCorLista1: #e0e0e0;
+    --accordionCorLista2: #f2f2f2;
+    --accordionCorHover: #d8d8d8;
+    --accordionCorIcone: #4F4F4F;
+    --accordionBotaoCorTexto: #828282;
+    --accordionBotaoCorTextoHover: #4F4F4F;
+    --accordionBotaoCorFundo: transparent;
+
+    --alertaCorBackground:#F2F2F2;
+    --alertaCorTexto: #121212;
+
+
+    --botaoCorTexto: #FFFFFF;
+    --botaoCorTextoHover: #fff;
+    --botaoCorTextoActive: #fff;
+    --botaoCorTextoDisabled: #fff;
+    --botaoCorFundo: #828282;
+    --botaoCorFundoHover: #4F4F4F;
+    --botaoCorFundoActive: #828282;
+    --botaoCorFundoDisabled: #E0E0E0;
+
+    --inputBorda: #F2F2F2;
+    --inputFundo: #F2F2F2;
+    --inputFonteTamanho: 16px;
+
+    --labelCorTexto: #4F4F4F;
+}
+
+.trabalhe-content {
+
+    form input:disabled, 
+    form select:disabled, 
+    form textarea:disabled,
+    form button:disabled {
+        cursor: not-allowed !important;
+    }
+
+    form input:not([type='file']):not([type="submit"]):disabled,
+    form select:disabled, 
+    form textarea:disabled  {
+        background: var(--inputDisabled) !important;
+    }
+
+    form select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+
+    .gform_wrapper {
+
+        input:invalid,
+        select:invalid,
+        textarea:invalid,
+        input:valid,
+        select:valid,
+        textarea:valid {
+            box-shadow: none !important; // Retira shadow padrão dos navegadores
+        }
+    
+        .validation_error {
+            color: #d47e35 !important;
+            font-size: 16px !important;
+            font-size: 1em;
+            font-weight: 700;
+            margin-bottom: 25px;
+            border-top: none !important;
+            border-bottom: none !important;
+            padding: 16px 0;
+            clear: both;
+            width: 100%;
+            text-align: center;
+            text-align: left !important;
+        }
+    
+        .validation_message {
+            color: #d47e35 !important;
+        }
+
+        .gform_heading {
+            .gform_description {
+                font-weight: 300;
+                font-size: 20px;
+                line-height: 32px;
+            }
+        }
+       
+        .gfield {
+    
+            &.gfield_error {
+                background-color: transparent !important;
+                margin-bottom: 6px !important;
+                border-top: none !important;
+                border-bottom: none !important;
+                padding-bottom: 6px;
+                padding-top: 8px;
+                box-sizing: border-box;
+                font-size: 14px !important;
+    
+                .gfield_label {
+                    color: var(--labelCorTexto) !important;
+                }
+    
+            }
+            .gfield_label {
+                font-style: normal;
+                font-weight: bold;
+                font-size: 14px;
+                color:  var(--labelCorTexto);
+                position: relative;
+                width: 100%;
+    
+                .full-label {
+                    position: absolute;
+                    top: 23px;
+                    padding-left: 10px;
+                    width: 100%;
+                    height: 34px !important;
+                    background: var(--formularioFundo);
+    
+                    .label-btn {
+                        height: 34px !important;
+                        width: 120px;
+                        box-shadow: none;
+                        outline: none;
+                        border: none;
+                        cursor: pointer;
+                    }
+    
+                    .nome-arquivo {
+                        display: inline-block;
+                        margin-left: 6px;
+                        font-weight: normal;
+                        font-size: 16px !important;
+                    }
+        
+                }
+    
+            }
+    
+                    
+            .ginput_container_select {
+                position: relative;
+    
+                &:after {
+                    content: " ";
+                    position: absolute;
+                    right: 18px;
+                    top: 39%;
+                    width: 8px;
+                    height: 14px;
+                    -webkit-transform: rotate(90deg);
+                            transform: rotate(90deg);
+                    background-image: url("@{url}/wp-content/themes/wp-drift-master/assets/img/seta.png");
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    background-size: contain;
+                    display: inline-block;
+                    -webkit-transition: 0.3s all ease-in-out;
+                    transition: 0.3s all ease-in-out;
+                }
+            }
+    
+            .ginput_container {
+                width: 100%;
+                border-radius: 4px;
+                height: auto;
+                margin-top: 6px !important;
+    
+                select {
+                    cursor: pointer;
+                    color: #7f7f7f !important;
+                    background: var(--brancoPadrao);
+                }
+    
+                option {
+                    font-style: normal;
+                    font-size: calc(~"12.000px + 0.313vw") !important; // 18px (1920) -> 13px (320)
+                }
+    
+                input:not([type="file"]), textarea, select {
+                    padding-left: 12px !important;
+                    width: 100% !important;
+                    border-radius: inherit;
+                    border: 1px solid var(--inputBorda);
+                    background: var(--inputFundo);
+                    font-style: normal;
+                    font-size: calc(~"12.000px + 0.313vw") !important; // 18px (1920) -> 13px (320)
+                }
+    
+                input:not([type="file"]), select {
+                    height: 50px;
+                    display: inline-block;
+                }
+    
+                input[type="file"] {
+                    padding-left: 73px !important;
+                    width: 100% !important;
+                    font-style: normal;
+                    font-size: 16px !important;
+                    line-height: 34px;
+                }
+    
+                textarea {
+                    height: 138px;
+                }
+            }
+        }
+    
+        .gform_footer .gform_button,
+        .label-btn {
+
+            display: -webkit-inline-box !important;
+            display: inline-flex !important;
+            -webkit-box-align: center;
+                    align-items: center;
+            -webkit-box-pack: center;
+                    justify-content: center;
+            border-radius: 4px;
+            background: var(--botaoCorFundo);
+            color: var(--botaoCorTexto);
+            font-style: normal;
+            font-weight: 300;
+            font-size: 16px !important;
+            line-height: 24px;
+            -webkit-transition: 0.3s all ease-in-out;
+            transition: 0.3s all ease-in-out;
+            border: none;
+            width: 106px !important;
+            cursor: pointer;
+
+            &:hover {
+                color: var(--botaoCorTextoHover);
+                background: var(--botaoCorFundoHover);
+            }
+        
+            &:active {
+                color: var(--botaoCorTextoActive);
+                background: var(--botaoCorFundoActive);
+            }
+                    
+            &:disabled {
+                background: var(--verdeDisabled);
+            }
+        }
+
+        .label-btn {
+            height: 34px;
+        }
+
+        .gform_footer {
+            display: flex;
+            -webkit-box-pack: end;
+                    justify-content: flex-end;
+    
+            .gform_button {
+
+                height: 48px;
+            }
+        }
+    
+        .gfield_required {
+            display: none !important;
+        }
+    }
+
+    .trabalhe-wrapper {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: start;
+            -ms-flex-align: start;
+                align-items: flex-start;
+        -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+                justify-content: space-between;
+        margin-top: 56px;
+
+
+        #vagas {
+            width: 48%;
+            
+            .vagas-title {
+                h3 {
+                    font-size: calc(~"24.800px + 1.000vw"); // 44px (1920) -> 28px (320)
+                    line-height: 64px;
+                    display: inline-block;
+                    color: var(--tituloCor);
+                }
+            }
+            .vagas-list {
+                margin-top: 36px;
+                max-width: 470px;
+                position: relative;
+                box-shadow: 0px 0px 2px 1px rgba(0,0,0,.03);
+
+                .sem-vagas-alert {
+                    width: 100%;
+                    height: 150px;
+                    background: var(--alertaCorBackground);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: var(--alertaCorTexto);
+                    font-style: normal;
+                    font-weight: bold;
+                    font-size: 18px;
+
+                }
+                
+                & > li:nth-child(odd) {
+                    .accordion .accordion-wrapper .accordion-clickable {
+                        background: var(--accordionCorLista1); // TODO
+
+                        &:hover {
+                            background: var(--accordionCorHover);
+                        }
+
+                    }
+                }
+
+                & > li:nth-child(even) {
+                    .accordion .accordion-wrapper .accordion-clickable {
+                        background: var(--accordionCorLista2); // TODO
+
+                        &:hover {
+                            background: var(--accordionCorHover);
+                        }
+
+                    }
+                }
+
+                .accordion {
+                    width: 100%;
+                    .accordion-wrapper {
+                        .accordion-clickable {
+                            height: 74px;
+                            display: -webkit-box;
+                            display: -ms-flexbox;
+                            display: flex;
+                            -webkit-box-orient: vertical;
+                            -webkit-box-direction: normal;
+                                -ms-flex-flow: column wrap;
+                                    flex-flow: column wrap;
+                            -webkit-box-align: start;
+                                -ms-flex-align: start;
+                                    align-items: flex-start;
+                            -webkit-box-pack: center;
+                                -ms-flex-pack: center;
+                                    justify-content: center;
+                            font-style: normal;
+                            font-weight: 300;
+                            font-size: 16px;
+                            line-height: 24px;
+                            padding-left: 18px;
+                            position: relative;
+                            cursor: pointer;
+                            -webkit-transition: 0.3s all ease-in-out;
+                            transition: 0.3s all ease-in-out;
+
+                            &:before {
+                                content: " ";
+                                position: absolute;
+                                top: 50%;
+                                right: 18px;
+                                width: 14px;
+                                height: 2px;
+                                background: var(--accordionCorIcone);
+                                -webkit-transform: translateY(-50%);
+                                        transform: translateY(-50%);
+                            }
+
+                            &:after {
+                                content: " ";
+                                position: absolute;
+                                top: 50%;
+                                right: 18px;
+                                width: 14px;
+                                height: 2px;
+                                background: var(--accordionCorIcone);
+                                -webkit-transform: translateY(-50%) rotate(90deg);
+                                        transform: translateY(-50%) rotate(90deg);
+                                -webkit-transition: 0.3s all ease-in-out;
+                                transition: 0.3s all ease-in-out;
+                            }
+
+                            &.aberto:after {
+                                -webkit-transform: translateY(-50%) rotate(0deg);
+                                        transform: translateY(-50%) rotate(0deg);
+                            }
+
+                            .nome-da-vaga {
+                                color: var(--accordionCorNome);
+                                font-weight: bold;
+                            }
+
+                            .data {
+                                color: var(--accordionCorData);
+                            }
+
+                            .vagas-btn {
+                                font-size: 14px;
+                                height: 24px;
+                                font-size: 14px;
+                                border: none;
+                                border-radius: 4px;
+                                background: var(--accordionBotaoCorFundo);
+                                color: var(--accordionBotaoCorTexto);
+                                font-style: normal;
+                                font-weight: bold;
+                                line-height: 24px;
+                                -webkit-transition: 0.3s all ease-in-out;
+                                transition: 0.3s all ease-in-out;
+                                cursor: pointer;
+                            
+                                &:hover,
+                                &:visited:hover {
+                                    color: var(--accordionBotaoCorTextoHover);
+                                }
+                            
+                                &:visited {
+                                    color: var(--accordionBotaoCorTexto);
+                                }
+                            
+                            }
+                            
+                        }
+                        .accordion-hidden {
+                            display: none;
+                            padding: 18px;
+                            font-style: normal;
+                            font-weight: 300;
+                            font-size: 16px;
+                            line-height: 24px;
+                            background: var(--brancoPadrao);
+                        }
+                    }
+                }
+            }
+        }
+
+
+        #formulario {
+            width: 48%;
+            padding: 0 48px 64px; // 96PX (1920) -> 48px (1000)
+            background: var(--formularioFundo);
+            border-radius: 8px;
+            margin-bottom: 22px;
+
+            h6 {
+                color:#606D76;
+            }
+            .gform_wrapper {
+                margin-top: 30px;
+
+                .gfield_html  {
+                    color: var(--labelCorTexto);
+                    font-size: 15px;
+                }
+            }
+        }
+
+        
+        .sem-vagas + #formulario {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .trabalhe-content {
+        .gform_wrapper .gform_heading .gform_description {
+            font-size: calc(~"17.059px + 0.294vw"); // 20px (1000) -> 18px (320);
+            line-height: calc(~"23.176px + 0.882vw"); // 32px (1000) -> 26px (320);
+        }
+
+        .trabalhe-wrapper {
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+                -ms-flex-direction: column;
+                    flex-direction: column;
+            -webkit-box-align: center;
+                -ms-flex-align: center;
+                    align-items: center;
+            margin-top: calc(~"17.765px + 3.824vw"); // 56px (1000) -> 30px (320)
+        
+    
+            #vagas {
+                width: 90%;
+                
+                .vagas-title {
+                    margin-top: 0;
+                }
+
+                .vagas-list {
+                    margin-top: calc(~"10.800px + 1.625vw"); // 42px (1000) -> 16px (320)
+                    max-width: unset;
+    
+                    .accordion {
+                        .accordion-wrapper {
+                            .accordion-hidden {
+                                font-size: calc(~"10.647px + 0.735vw"); // 18px (1000) -> 13px (320)
+                            }
+                        }
+                    }
+                }
+            }
+    
+            #formulario {
+                width: 90%;
+                margin-top: calc(~"25.600px + 2.000vw"); // 64px (1000) -> 32px (320)
+                padding: calc(~"10.588px + 2.941vw") calc(~"-16.000px + 5.000vw"); //  40px (1000) -> 20px (320) | 80px (1000) -> 0px (320)
+                margin-bottom: 22px;
+
+            }
+        }
+    }
+    
+}
+
+@media only screen and (max-width: 768px) {
+    .trabalhe-content {
+        .trabalhe-wrapper {
+            #vagas {
+                width: 100%;
+            }
+
+            #formulario {
+                width: 100%;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 426px) {
+    .trabalhe-content {
+        .gform_wrapper .gform_footer .gform_button {
+            width: 100% !important;
+            margin-top: -10px !important;
+        }
+    
+        .gform_wrapper .gfield .gfield_label .full-label {
+            padding-left: unset;
+            display: flex;
+            align-items: center;
+            flex-wrap: nowrap;
+    
+            .nome-arquivo {
+                font-size: 12px !important;
+                word-break: break-all;
+            }
+        }    
+    }
+    
+}
