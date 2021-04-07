@@ -186,6 +186,7 @@ if ( !BLOG ) {
     add_filter('excerpt_more', 'custom_ler_mais');
     add_filter('get_search_form', 'custom_search_form');
     add_action( 'save_post', 'contagem_palavras' );
+    add_filter( 'media_view_settings', 'theme_gallery_defaults' );
 
     // Configurações para Post em Destaque
     if( !get_current_post_type() == 'post' ) {
@@ -202,6 +203,13 @@ if ( !BLOG ) {
     }
 
     adicionar_meta_boxes();
+}
+
+function theme_gallery_defaults( $settings ) {
+    $settings['galleryDefaults']['link'] = 'file';
+    $settings['galleryDefaults']['columns'] = 3;
+    $settings['galleryDefaults']['size'] = 'thumbnail';
+    return $settings;
 }
 
 function blog_admin_files() {
