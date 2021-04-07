@@ -37,7 +37,7 @@ define( 'EM_BREVE', false );
 define( 'COMENTARIOS', false );
 define( 'BLOG', true );
 define( 'ID_ANALYTICS', false );
-define( 'VAGAS_PADRAO', true);
+define( 'VAGAS_PADRAO', false);
 
 /**
  * ~ Aqui não é preciso editar nada ~
